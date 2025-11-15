@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Othello Game + Coding Sandbox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Start Screen (Visible only after question is uploaded) -->
+<div id="start-screen" class="overlay" style="display:none;">
+    <h1>Othello</h1>
+    <h2>Enter your name to start</h2>
+    <input type="text" id="player-name" placeholder="Enter name" />
+    <button id="start-btn">Start Game</button>
+</div>
+
+<!-- Main Container (Hidden until game starts) -->
+<div id="main-container" style="display:none;">
+
+    <!-- 🟩 Othello Section (Left Side) -->
+    <div id="othello-section" class="game-section">
+        <h1>Othello Game</h1>
+        <div id="turn-indicator">Current Turn: Black</div>
+        <div id="board"></div>
+        <div id="winner-overlay">
+            <span id="winner-text"></span>
+        </div>
+
+        <div id="move-log-container">
+            <h3>🧩 Black Player Moves</h3>
+            <ul id="move-log"></ul>
+        </div>
+
+        <button id="reset">Reset Game</button>
+    </div>
+
+    <!-- 💻 Coding Section (Right Side) -->
+    <div id="sandbox-section" class="game-section">
+        <h1>Coding Sandbox</h1>
+
+        <div id="question-display">
+            <h3>Question:</h3>
+            <p id="coding-question">Waiting for admin to upload question...</p>
+            <pre id="testcases" style="white-space: pre-wrap; font-size: 0.95em; color: #ccc;"></pre>
+        </div>
+
+        <div id="code-editor-container">
+            <textarea id="code-editor" placeholder="#include &lt;stdio.h&gt;\nint main() {\n    // your code here\n    return 0;\n}"></textarea>
+        </div>
+
+        <div id="sandbox-controls">
+            <button id="run-code-btn">Run & Submit Code</button>
+            <button id="clear-code-btn">Clear</button>
+        </div>
+
+        <div id="output-container">
+            <h3>Output:</h3>
+            <pre id="code-output">Output will appear here...</pre>
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

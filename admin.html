@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - Upload Coding Question</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          padding: 40px;
+        }
+        .admin-container {
+          max-width: 400px;
+          margin: 0 auto;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          padding: 30px;
+        }
+        h2 {
+          text-align: center;
+        }
+        input, button {
+          width: 100%;
+          margin: 8px 0;
+          padding: 10px;
+          font-size: 1rem;
+        }
+        #admin-upload {
+          display: none;
+          margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <h2>Admin Login</h2>
+    <input type="email" id="admin-email" placeholder="Email" required>
+    <input type="password" id="admin-password" placeholder="Password" required>
+    <button id="admin-login-btn">Login</button>
+
+    <div id="admin-upload">
+        <h3>Upload Question (.txt)</h3>
+        <input type="file" id="question-file" accept=".txt">
+        <button id="upload-question-btn">Upload</button>
+    </div>
+</div>
+
+<script>
+    const ADMIN_API = "http://localhost:8080/api/othello/admin";
+
+    const adminEmail = document.getElementById("admin-email");
+    const adminPassword = document.getElementById("admin-password");
+    const adminLoginBtn = document.getElementById("admin-login-btn");
+    const adminUploadDiv = document.getElementById("admin-upload");
+    const questionFileInput = document.getElementById("question-file");
+    const uploadQuestionBtn = document.getElementById("upload-question-btn");
+
+    adminLoginBtn.addEventListener("click", async () => {
+      const email = adminEmail.value.trim();
+      const password = adminPassword.value.trim();
+      if (!email || !password) return alert("Enter email & password");
+
+      try {
+        const res = await fetch(`${ADMIN_API}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!data.success) return alert("Login failed: " + data.message);
+
+        alert("Login successful");
+        adminUploadDiv.style.display = "block";
+      } catch (err) {
+        alert("Login error: " + err.message);
+      }
+    });
+
+    uploadQuestionBtn.addEventListener("click", async () => {
+      const file = questionFileInput.files[0];
+      if (!file) return alert("Select a question file");
+
+      const form = new FormData();
+      form.append("file", file);
+
+      try {
+        const res = await fetch(`${ADMIN_API}/upload`, { method: "POST", body: form });
+        const data = await res.json();
+        if (!data.success) return alert("Upload failed: " + data.message);
+
+        alert("Question uploaded successfully!");
+        window.location.href = "index.html"; // 🔁 Redirect to main game
+      } catch (err) {
+        alert("Upload error: " + err.message);
+      }
+    });
+</script>
+</body>
+</html>
+
+
+
