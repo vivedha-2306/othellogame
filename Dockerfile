@@ -1,6 +1,4 @@
-FROM maven:3-eclipse-temurin-17 AS build
-COPY. .
-RUN mvn clean package -DskipTests
+
 
 # Use OpenJDK 17 as base image
 FROM eclipse-temurin:17-jdk
@@ -17,3 +15,4 @@ EXPOSE 8081
 
 # Command to run your app
 ENTRYPOINT ["java", "-jar", "othello.jar"]
+
